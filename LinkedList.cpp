@@ -1,8 +1,15 @@
 #include "LinkedList.hpp"
 
+LinkedList *LinkedList::pHead = 0;
+int LinkedList::size = 0;
+
 LinkedList::LinkedList() {
     this->pHead = nullptr;
     this->size = 0;
+}
+
+LinkedList::LinkedList(int data) {
+    this->data = data;
 }
 
 LinkedList::LinkedList(const LinkedList& orig) {
@@ -12,9 +19,9 @@ LinkedList::~LinkedList() {
 }
 
 void LinkedList::add(int nData) {
-    Node* pCurrentPos = pHead;
+    LinkedList* pCurrentPos = LinkedList::pHead;
 
-    Node* pNewData = new Node(nData);
+    LinkedList* pNewData = new LinkedList(nData);
     pNewData->pNext = 0;
 
     if (pHead == 0) {
@@ -26,20 +33,11 @@ void LinkedList::add(int nData) {
 
         pCurrentPos->pNext = pNewData;
     }
-    size++;
-}
-
-int LinkedList::get(int nId) {
-    Node* pCurrentPos = pHead;
-
-    for (int i = 0; i < nId; i++)
-        pCurrentPos = pCurrentPos->pNext;
-
-    return pCurrentPos->get();
+    LinkedList::size++;
 }
 
 void LinkedList::remove(int nId) {
-    Node* pCurrentPos = pHead;
+    LinkedList* pCurrentPos = pHead;
 
     if (nId > size - 1) {
         return;
@@ -55,7 +53,7 @@ void LinkedList::remove(int nId) {
 
         for (int i = 0;; i++) {
             if (i == nId - 1) {
-                Node *pPrevPos = pCurrentPos;
+                LinkedList *pPrevPos = pCurrentPos;
                 pCurrentPos = pCurrentPos->pNext;
                 removeNode(pCurrentPos);
                 pPrevPos->pNext = 0;
@@ -74,7 +72,7 @@ void LinkedList::remove(int nId) {
     for (int i = 0;; i++) {
 
         if (i == nId - 1) {
-            Node *pDeadNode = pCurrentPos;
+            LinkedList *pDeadNode = pCurrentPos;
             pCurrentPos->pNext = pCurrentPos->pNext->pNext;
             return;
         }
@@ -83,20 +81,20 @@ void LinkedList::remove(int nId) {
     removeNode(pCurrentPos);
 }
 
-void LinkedList::removeNode(Node *node) {
+void LinkedList::removeNode(LinkedList *node) {
     delete node;
-    size--;
+    LinkedList::size--;
 }
 
 void LinkedList::out() {
-    if (pHead == nullptr)
+    if (LinkedList::pHead == nullptr)
         return;
-    Node* pCurrentPos = pHead;
+    LinkedList* pCurrentPos = LinkedList::pHead;
     while (pCurrentPos->pNext) {
-        std::cout << pCurrentPos->get() << " ";
+        std::cout << pCurrentPos->data << " ";
         pCurrentPos = pCurrentPos->pNext;
     }
-    std::cout << pCurrentPos->get() << std::endl;
+    std::cout << pCurrentPos->data << std::endl;
 }
 
 void LinkedList::clear() {

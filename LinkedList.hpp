@@ -17,14 +17,17 @@
 
 class LinkedList {
 private:
-    Node *pHead;
-    int size;
+    LinkedList *pNext;
+    int data;
     
-    void removeNode(Node *node);
+    void removeNode(LinkedList *node);
+    static LinkedList *pHead;
+    static int size;
 
 public:
     
     LinkedList();
+    LinkedList(int data);
     LinkedList(const LinkedList& orig);
     virtual ~LinkedList();
     
@@ -34,4 +37,3 @@ public:
     void clear();
     void out();
 };
-

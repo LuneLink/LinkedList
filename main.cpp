@@ -38,13 +38,13 @@ int main(int argc, char** argv) {
     LinkedList linkedList;
 
     linkedList.add(2);
-    /*linkedList.add(5);
+    linkedList.add(5);
     linkedList.add(1);
-    linkedList.add(6);*/
+    linkedList.add(6);
 
     linkedList.out();
 
-    linkedList.remove(0);
+    linkedList.clear();
 
     linkedList.out();
 
